@@ -22,6 +22,21 @@ const theme = createTheme({
         disableUnderline: true,
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true, // No more ripple, on the whole application 💣!
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          borderRadius: 9999,
+          fontWeight: 700,
+          fontSize: 17,
+          textTransform: "none",
+        },
+      },
+    },
   },
 });
 

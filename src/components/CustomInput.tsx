@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { alpha, Input, TextField, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { InputBase } from "@material-ui/core";
@@ -27,22 +27,33 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CustomInput = ({ label }: { label: string }) => {
-  const classes = useStyles();
+type IProps = { label: string };
 
-  return (
-    <TextField
-      className={classes.input}
-      label={label}
-      variant="outlined"
-      fullWidth
-      inputProps={{
-        style: {
-          padding: "20px 30px",
-          border: "none",
-          fontWeight: 500,
-        },
-      }}
-    ></TextField>
-  );
-};
+const CustomInput = forwardRef<HTMLInputElement, IProps>(
+  (props: IProps, ref) => {
+    const { label, ...rest } = props;
+    const classes = useStyles();
+
+    return (
+      <TextField
+        className={classes.input}
+        label={label}
+        {...rest}
+        variant="outlined"
+        fullWidth
+        ref={ref}
+        inputProps={{
+          style: {
+            padding: "20px 30px",
+            border: "none",
+            fontWeight: 500,
+          },
+        }}
+      ></TextField>
+    );
+  }
+);
+
+CustomInput.displayName = "CustomInput";
+
+export default CustomInput;
