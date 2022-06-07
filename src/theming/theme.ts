@@ -13,7 +13,7 @@ const theme = createTheme({
       main: "#2877EE",
     },
     secondary: {
-      main: red[900],
+      main: "#2B3648",
     },
   },
   components: {

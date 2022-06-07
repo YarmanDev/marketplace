@@ -10,6 +10,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "8px 18px",
     borderRadius: 33,
     position: "relative",
+    "&.dark": {
+      backgroundColor: "#393C49",
+      padding: "0",
+      borderRadius: 10,
+      "& label div:nth-child(2)": {
+        color: "#393C49",
+      },
+    },
     "& label div:nth-child(2)": {
       color: theme.palette.common.white,
     },
@@ -24,6 +32,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: "1 1 auto",
     zIndex: 1,
     cursor: "pointer",
+    "&.dark": {
+      padding: "5px 0",
+      borderRadius: 10,
+      color: theme.palette.common.white,
+    },
   },
   toggle: {
     position: "absolute",
@@ -34,6 +47,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     zIndex: 0,
     backgroundColor: theme.palette.primary.main,
     transition: "transform .3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    "&.dark": {
+      minHeight: "100%",
+      width: `50%`,
+      borderRadius: 10,
+      backgroundColor: theme.palette.common.white,
+    },
   },
   input: {
     position: "absolute",
@@ -46,9 +65,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       },
       "& div:nth-child(3)": {
         color: theme.palette.common.white,
+        "&.dark": {
+          color: "#393C49",
+        },
       },
       "& div:nth-child(2)": {
         color: theme.palette.primary.main,
+        "&.dark": {
+          color: theme.palette.common.white,
+        },
       },
     },
   },
@@ -56,29 +81,31 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface IProps {
   options: string[];
-  setFormType: (type: "login" | "register") => void;
+  getInputValue: (value?: boolean) => void;
+  additionalStyles?: string;
 }
 
 export const Switcher = (props: IProps) => {
-  const { options, setFormType } = props;
+  const { options, getInputValue, additionalStyles } = props;
   const classes = useStyles();
   const ref = useRef<HTMLInputElement>(null);
-  const handleTypeChange = () =>
-    setFormType(ref.current?.checked ? "register" : "login");
 
   return (
-    <div className={cn(classes.switcherWrapper, "switcher")}>
+    <div
+      className={cn(classes.switcherWrapper, "switcher", additionalStyles)}
+      style={{}}
+    >
       <input
         type="checkbox"
         id="switch"
-        className={classes.input}
-        onClick={handleTypeChange}
+        className={cn(classes.input, additionalStyles)}
+        onClick={() => getInputValue(ref.current?.checked)}
         ref={ref}
       />
       <label htmlFor="switch" style={{ display: "flex" }}>
-        <div className={classes.toggle}></div>
+        <div className={cn(classes.toggle, additionalStyles)}></div>
         {options.map((option) => (
-          <div key={option} className={classes.option}>
+          <div key={option} className={cn(classes.option, additionalStyles)}>
             {option}
           </div>
         ))}

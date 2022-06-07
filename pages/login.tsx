@@ -47,12 +47,19 @@ const Login = () => {
   const classes = useStyles();
   const [formType, setFormType] = useState<"login" | "register">("login");
 
+  const handleFormTypeChange = (value?: boolean) => {
+    setFormType(value ? "register" : "login");
+  };
+
   return (
     <Grid container spacing={0} sx={{ height: "100vh" }}>
       <Logo className={classes.logo} />
       <Grid item xs={5} className={classes.left}>
         <div className={classes.formWrapper}>
-          <Switcher options={["Login", "Register"]} setFormType={setFormType} />
+          <Switcher
+            options={["Login", "Register"]}
+            getInputValue={handleFormTypeChange}
+          />
           <Form fields={FormFields[formType]} />
         </div>
       </Grid>
