@@ -7,12 +7,17 @@ import "@fontsource/montserrat/900.css";
 import * as React from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import theme from "../src/theming/theme";
+import { default as lightTheme } from "../src/theming/lightTheme";
+import { default as darkTheme } from "../src/theming/darkTheme";
 import createEmotionCache from "../src/createEmotionCache";
 import { createGenerateClassName, StylesProvider } from "@mui/styles";
+import i18next from "i18next";
+import { en, initI18n, SupportedLanguage, ua } from "../src/i18n";
+import { I18nextProvider } from "react-i18next";
+import { useEffect, useState } from "react";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -52,19 +57,34 @@ export default function MyApp(props: MyAppProps) {
   //   if (jssStyles) jssStyles.parentElement?.removeChild(jssStyles);
   // }, []);
 
+  const [activeTheme, setActiveTheme] = useState(lightTheme);
+  const [selectedTheme, setSelectedTheme] = useState<"light" | "dark">("light");
+
+  const toggleTheme: React.MouseEventHandler<HTMLAnchorElement> = () => {
+    const desiredTheme = selectedTheme === "light" ? "dark" : "light";
+
+    setSelectedTheme(desiredTheme);
+  };
+
+  useEffect(() => {
+    setActiveTheme(getActiveTheme(selectedTheme));
+  }, [selectedTheme]);
+
   return (
     <I18nextProvider i18n={i18nInstance}>
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <ThemeProvider theme={theme}>
-        <StylesProvider generateClassName={generateClassName}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </StylesProvider>
-      </ThemeProvider>
-    </CacheProvider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={activeTheme}>
+            <StylesProvider generateClassName={generateClassName}>
+              <CssBaseline />
+              <Component {...pageProps} toggleTheme={toggleTheme} />
+            </StylesProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </CacheProvider>
     </I18nextProvider>
   );
 }

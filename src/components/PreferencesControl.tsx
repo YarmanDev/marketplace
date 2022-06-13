@@ -1,6 +1,9 @@
-import { Theme } from "@mui/material";
+import { Switch, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ModeSwitcher } from "./switchers/ModeSwitcher";
+import { Switcher } from "./switchers/Switcher";
 
 const useStyles = makeStyles((theme: Theme) => ({
   control: {
@@ -15,8 +18,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
-
-export const PreferencesControl = () => {
+interface IProps {
+  toggleTheme?: React.MouseEventHandler<HTMLButtonElement>;
+}
+export const PreferencesControl = (props: IProps) => {
+  const { toggleTheme } = props;
   const classes = useStyles();
   const [language, setLanguage] = useState("UA");
   const { i18n } = useTranslation();
@@ -28,6 +34,7 @@ export const PreferencesControl = () => {
   useEffect(() => {
     i18n.changeLanguage(language.toLowerCase());
   }, [language, i18n]);
+
   return (
     <div className={classes.control}>
       <Switcher
@@ -35,7 +42,8 @@ export const PreferencesControl = () => {
         getInputValue={handleLanguageChange}
         additionalStyles="dark"
       />
-      {/* <Switcher options={["UA", "EN"]} /> */}
+
+      <ModeSwitcher toggleTheme={toggleTheme} />
     </div>
   );
 };

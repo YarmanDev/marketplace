@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Form, FormFields } from "../src/components/Form";
 import Logo from "../src/components/Logo";
-import { Switcher } from "../src/components/Switcher";
+import { Switcher } from "../src/components/switchers/Switcher";
 import loginImage from "../src/images/login-image.png";
 
 const useStyles = makeStyles((theme: Theme) => ({
