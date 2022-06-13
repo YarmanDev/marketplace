@@ -25,6 +25,26 @@ const generateClassName = createGenerateClassName({
   productionPrefix: "c",
 });
 
+const resources: Record<SupportedLanguage, any> = {
+  en: {
+    translation: en,
+  },
+  ua: {
+    translation: ua,
+  },
+} as const;
+
+const supportedLngs = Object.keys(resources);
+
+const i18nInstance = initI18n({
+  supportedLngs,
+  resources,
+});
+
+function getActiveTheme(themeMode: "light" | "dark") {
+  return themeMode === "light" ? lightTheme : darkTheme;
+}
+
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   // React.useEffect(() => {
@@ -33,6 +53,7 @@ export default function MyApp(props: MyAppProps) {
   // }, []);
 
   return (
+    <I18nextProvider i18n={i18nInstance}>
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -44,5 +65,6 @@ export default function MyApp(props: MyAppProps) {
         </StylesProvider>
       </ThemeProvider>
     </CacheProvider>
+    </I18nextProvider>
   );
 }

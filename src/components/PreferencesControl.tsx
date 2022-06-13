@@ -1,7 +1,6 @@
 import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
-import { Switcher } from "./Switcher";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   control: {
@@ -20,13 +19,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const PreferencesControl = () => {
   const classes = useStyles();
   const [language, setLanguage] = useState("UA");
-  // eslint-disable-next-line no-console
-  console.log(language);
+  const { i18n } = useTranslation();
 
   const handleLanguageChange = (value?: boolean) => {
     setLanguage(value ? "EN" : "UA");
   };
 
+  useEffect(() => {
+    i18n.changeLanguage(language.toLowerCase());
+  }, [language, i18n]);
   return (
     <div className={classes.control}>
       <Switcher
