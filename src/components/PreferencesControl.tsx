@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     maxHeight: 50,
-    padding: "15px 18px",
+    padding: "15px 40px",
     "& > div": {
       flex: "0 1 12%",
     },

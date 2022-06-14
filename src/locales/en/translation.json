@@ -1,3 +1,7 @@
 {
-    "key": "hello world"
+    "key": "hello world",
+    "Catalog": "Catalog",
+    "Buy Now": "Buy Now",
+    "Count Later": "Count Later",
+    "Main Categories": "Main Categories"
   }
