@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
           />
           {(this.props as any).emotionStyleTags}
         </Head>
-        <body>
+        <body style={{ transition: "all 0.4s ease-out" }}>
           <Main />
           <NextScript />
         </body>
