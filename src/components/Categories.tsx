@@ -1,17 +1,32 @@
-import { Theme } from "@mui/material";
+import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Image from "next/image";
 import React from "react";
-import { useImportedImage } from "../hooks/useImportedImage";
+import { useTranslation } from "react-i18next";
 import Car from "../images/car.svg";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: "#C1CDD8",
-    width: 1040,
-    height: 200,
+    // backgroundColor: "#C1CDD8",
+    maxWidth: 1040,
     margin: "0 auto",
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    alignItems: "center",
+    justifyContent: "center",
+    rowGap: 30,
+    padding: "0 0 0 70px",
+  },
+  item: {
     display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+
+    "&:hover": {
+      "& > div": {
+        backgroundColor: "transparent !important",
+      },
+    },
   },
   circle: {
     width: 70,
@@ -21,12 +36,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    cursor: "pointer",
     transition: "background-color 0.25s ease",
-
-    "&:hover": {
-      backgroundColor: "transparent !important",
-    },
+    alignSelf: "center",
+    justifySelf: "center",
+  },
+  name: {
+    marginLeft: 16,
+    textTransform: "capitalize",
+    fontSize: 20,
+    fontWeight: 700,
   },
 }));
 const allCategories = [
@@ -46,17 +64,22 @@ const allCategories = [
 
 export const Categories = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
       {allCategories.map(({ name, color }) => {
         return (
-          <div
-            className={classes.circle}
-            key={name}
-            style={{ backgroundColor: color, border: `2.5px solid ${color}` }}
-          >
-            <Image src={`/${name}.svg`} alt={name} width={40} height={40} />
+          <div key={name} className={classes.item}>
+            <div
+              className={classes.circle}
+              style={{ backgroundColor: color, border: `2.5px solid ${color}` }}
+            >
+              <Image src={`/${name}.svg`} alt={name} width={40} height={40} />
+            </div>
+            <Typography variant="body2" className={classes.name}>
+              {t(name)}
+            </Typography>
           </div>
         );
       })}

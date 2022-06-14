@@ -3,5 +3,18 @@
     "Catalog": "Catalog",
     "Buy Now": "Buy Now",
     "Count Later": "Count Later",
-    "Main Categories": "Main Categories"
+    "Main Categories": "Main Categories",
+    "Popular": "Popular",
+    "car": "car",
+    "phone": "phone",
+    "laptop": "laptop",
+    "book": "book",
+    "watch": "watch",
+    "beauty": "beauty",
+    "toys": "toys",
+    "sport": "sport",
+    "furniture": "furniture",
+    "interior": "interior",
+    "jewelry": "jewelry",
+    "shoes": "shoes"
   }
