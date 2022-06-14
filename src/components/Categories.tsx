@@ -3,7 +3,6 @@ import { makeStyles } from "@mui/styles";
 import Image from "next/image";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Car from "../images/car.svg";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

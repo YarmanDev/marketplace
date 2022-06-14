@@ -64,7 +64,7 @@ const Login = () => {
         </div>
       </Grid>
       <Grid item xs={7} className={classes.right}>
-        <Image src={loginImage} alt="login image" />
+        <Image src={loginImage} alt="login image" width={520} height={520} />
         <div className={classes.description}>
           <Typography variant="h1" sx={{ fontSize: 40, fontWeight: 700 }}>
             <span style={{ textTransform: "capitalize" }}> {formType}</span> to

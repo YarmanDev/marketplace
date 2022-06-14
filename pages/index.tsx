@@ -8,6 +8,7 @@ import { Banner } from "../src/components/Banner";
 import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Categories } from "../src/components/Categories";
+import { PopularItems } from "../src/components/popularItems/PopularItems";
 
 type HomeProps = {
   toggleTheme?: React.MouseEventHandler<HTMLButtonElement>;
@@ -39,6 +40,10 @@ const Home: NextPage = (props: HomeProps) => {
           {t("Main Categories")}
         </Typography>
         <Categories />
+        <Typography variant="h2" className={classes.title}>
+          {t("Popular")}
+        </Typography>
+        <PopularItems />
         {/* <Link href={"/login"}>{t("key")}</Link> */}
       </div>
     </div>
